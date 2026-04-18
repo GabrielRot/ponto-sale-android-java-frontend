@@ -40,5 +40,21 @@ public class MenuPrincipal extends AppCompatActivity {
 
             startActivity(intent);
         });
+
+        MaterialCardView pontosRegistrados = findViewById(R.id.pontosRegistrados);
+
+        pontosRegistrados.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuPrincipal.this, PontosRegistrados.class);
+
+            startActivity(intent);
+        });
+
+        MaterialCardView roles = findViewById(R.id.roles);
+
+        roles.setOnClickListener(v -> {
+            Intent intent = new Intent(MenuPrincipal.this, Roles.class);
+
+            startActivity(intent);
+        });
     }
 }

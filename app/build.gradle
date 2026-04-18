@@ -38,6 +38,8 @@ dependencies {
     implementation "androidx.camera:camera-lifecycle:$camerax_version"
     implementation "androidx.camera:camera-view:$camerax_version"
 
+    implementation "com.jakewharton.threetenabp:threetenabp:1.4.6"
+
     implementation libs.appcompat
     implementation libs.material
     implementation libs.activity

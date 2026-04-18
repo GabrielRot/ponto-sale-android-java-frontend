@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -24,6 +25,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.pontosale.R;
 import com.example.pontosale.session.SessionManager;
 import com.example.pontosale.utils.Constants;
+import com.example.pontosale.utils.ImageUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.common.util.concurrent.ListenableFuture;
 
@@ -44,6 +46,8 @@ public class RegistrarPonto extends AppCompatActivity {
     private int cameraFacing = CameraSelector.LENS_FACING_FRONT;
 
     private ImageCapture imageCapture;
+
+    private View loadingOverlay;
 
     private void startCamera() {
         ListenableFuture<ProcessCameraProvider> cameraProviderFuture = ProcessCameraProvider.getInstance(this);
@@ -74,8 +78,16 @@ public class RegistrarPonto extends AppCompatActivity {
     private void enviarFoto(File file) {
         OkHttpClient client = new OkHttpClient();
 
+        File newFile = ImageUtils.resizeFileImage(file, 800, 800);
+
+        if (newFile == null) {
+            Toast.makeText(this, "Falha ao comprimir imagem", Toast.LENGTH_SHORT).show();
+
+            return;
+        }
+
         RequestBody fileBody = RequestBody.create(
-                file,
+                newFile,
                 MediaType.parse("image/jpeg")
         );
 
@@ -92,10 +104,14 @@ public class RegistrarPonto extends AppCompatActivity {
                 .post(requestBody)
                 .build();
 
+        showLoading();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NonNull Call call, @NonNull IOException e) {
                 runOnUiThread(() -> {
+                    hideLoading();
+
                     Log.e("registrarPonto", "Erro: " + e.getMessage());
 
                     Toast.makeText(RegistrarPonto.this, "Falha ao registrar ponto", Toast.LENGTH_SHORT).show();
@@ -105,6 +121,8 @@ public class RegistrarPonto extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
                 runOnUiThread(() -> {
+                    hideLoading();
+
                     if (response.isSuccessful()) {
                         Toast.makeText(RegistrarPonto.this, "Registro de ponto registrado com sucesso", Toast.LENGTH_SHORT).show();
                     } else {
@@ -174,5 +192,17 @@ public class RegistrarPonto extends AppCompatActivity {
         btnCapture.setOnClickListener(v -> {
             capturePhoto();
         });
+
+        loadingOverlay = findViewById(R.id.loadingOverlay);
+    }
+
+
+
+    private void showLoading() {
+        runOnUiThread(() -> loadingOverlay.setVisibility(View.VISIBLE));
+    }
+
+    private void hideLoading() {
+        runOnUiThread(() -> loadingOverlay.setVisibility(View.GONE));
     }
 }

@@ -19,6 +19,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.pontosale.R;
 import com.example.pontosale.session.SessionManager;
 import com.example.pontosale.utils.Constants;
+import com.example.pontosale.utils.Loading;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -38,6 +39,8 @@ public class MainActivity extends AppCompatActivity {
     EditText email, senha;
     Button btnLogin;
 
+    private View loadingView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,8 @@ public class MainActivity extends AppCompatActivity {
         email = findViewById(R.id.editMail);
         senha = findViewById(R.id.editSenha);
         btnLogin = findViewById(R.id.btnLogin);
+
+        loadingView = findViewById(R.id.loadingOverlay);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,9 +87,13 @@ public class MainActivity extends AppCompatActivity {
                             .post(body)
                                 .build();
 
+                    Loading.showLoading(MainActivity.this, loadingView);
+
                     client.newCall(request).enqueue(new Callback() {
                         @Override
                         public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                            Loading.hideLoading(MainActivity.this, loadingView);
+
                             e.printStackTrace();
 
                             Log.d("login", e.getMessage());
@@ -92,6 +101,8 @@ public class MainActivity extends AppCompatActivity {
 
                         @Override
                         public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                            Loading.hideLoading(MainActivity.this, loadingView);
+
                             if (!response.isSuccessful()) {
                                 runOnUiThread(() -> {
                                     Toast.makeText(MainActivity.this, "Email ou senha incorreto. Por favor tente novamente", Toast.LENGTH_LONG).show();

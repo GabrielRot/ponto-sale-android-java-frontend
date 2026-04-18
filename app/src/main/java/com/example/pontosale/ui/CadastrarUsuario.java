@@ -14,6 +14,7 @@ import androidx.activity.result.PickVisualMediaRequest;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.camera.core.internal.utils.ImageUtil;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -21,6 +22,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.pontosale.R;
 import com.example.pontosale.session.SessionManager;
 import com.example.pontosale.utils.Constants;
+import com.example.pontosale.utils.ImageUtils;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -42,29 +44,6 @@ import okhttp3.Response;
 public class CadastrarUsuario extends AppCompatActivity {
 
     private Uri selectedImageUri;
-
-    private byte[] getImageBytes(Uri uri) throws IOException {
-        Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-
-        bitmap = Bitmap.createScaledBitmap(bitmap, 800, 800, true);
-
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 70, stream);
-
-        return stream.toByteArray();
-    }
-
-    private byte[] prepareImage(Uri uri) {
-        try {
-            return getImageBytes(uri);
-        } catch (Exception e) {
-            Log.e("imageResize", e.getMessage());
-
-            Toast.makeText(CadastrarUsuario.this, "Falha ao processar imagem", Toast.LENGTH_SHORT).show();
-
-            return null;
-        }
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,7 +171,7 @@ public class CadastrarUsuario extends AppCompatActivity {
             if (!erroForm.get()) {
                 OkHttpClient client = new OkHttpClient();
 
-                byte[] imageBytes = prepareImage(selectedImageUri);
+                byte[] imageBytes = ImageUtils.resizeUriImage(CadastrarUsuario.this, selectedImageUri, 800, 800);
 
                 RequestBody requestBody = new MultipartBody.Builder()
                         .setType(MultipartBody.FORM)

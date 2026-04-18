@@ -4,10 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+    
     <androidx.camera.view.PreviewView
         android:id="@+id/previewView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
+    
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnCapture"
         android:layout_width="64dp"
@@ -22,6 +24,7 @@
         android:backgroundTint="#6200EE"
         app:iconGravity="textStart"
         app:iconSize="28dp"/>
+    
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnSwitchCamera"
         android:layout_width="64dp"
@@ -36,4 +39,19 @@
         app:iconSize="32dp"
         app:iconGravity="textStart"
         android:rotation="90"/>
+    
+    <FrameLayout
+        android:id="@+id/loadingOverlay"
+        android:visibility="gone"
+        android:background="#80000000"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </FrameLayout>
+    
 </FrameLayout>
