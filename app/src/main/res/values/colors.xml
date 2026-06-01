@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="black">#FF000000</color>
+    <color name="semi_black">#2B2B2B</color>
     <color name="white">#FFFFFFFF</color>
     <color name="gray_dark">#646464</color>
     <color name="gray">#CECECE</color>
+    <color name="primary_light">#056AC8</color>
+    <color name="success">#278701</color>
+    <color name="warning">#FFC628</color>
+    <color name="delete">#E95B54</color>
+    <color name="checkbox_checked">@color/success</color>
+    <color name="checkbox_uncheked">@color/gray_dark</color>
 </resources>

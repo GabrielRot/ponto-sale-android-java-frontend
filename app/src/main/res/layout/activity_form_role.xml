@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.FormRole">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            >
+        </LinearLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutNome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Nome"
+            android:layout_marginTop="14dp">
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editNome"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layoutDescricao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Descrição"
+            app:boxBackgroundMode="outline"
+            android:layout_marginTop="4dp"
+            >
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editDescricao"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minLines="4"
+                android:gravity="top|start"
+                android:inputType="textMultiLine"
+                android:scrollbars="vertical"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Permissões"
+            android:textStyle="bold"
+            android:textSize="20dp"
+            android:layout_marginTop="12dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Usuários"
+                android:textStyle="bold"
+                android:textSize="16dp"/>
+        </LinearLayout>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbCriarUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Criar usuários"
+            app:buttonTint="@color/checkbox_colors"
+            />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbVisualizarUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="Visualizar usuários"
+            app:buttonTint="@color/checkbox_colors"
+            />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbAtualizarUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Atualizar usuários"
+            app:buttonTint="@color/checkbox_colors"
+            />
+        
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbDeletarUsuarios"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deletar usuários"
+            app:buttonTint="@color/checkbox_colors"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Role"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:layout_marginTop="12dp"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbCriarRoles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Criar Roles"
+            app:buttonTint="@color/checkbox_colors"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbVisualizarRoles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Visualizar Roles"
+            app:buttonTint="@color/checkbox_colors"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbAtualizarRoles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Atualizar Roles"
+            app:buttonTint="@color/checkbox_colors"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbDeletarRoles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Deletar Roles"
+            app:buttonTint="@color/checkbox_colors"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:text="Ponto"
+            android:layout_marginTop="12dp"/>
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/ckbVisualizarApontamentos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Visualizar todos apontamentos"
+            app:buttonTint="@color/checkbox_colors"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnSalvar"
+            android:layout_marginTop="22dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Salvar"
+            />
+
+    </LinearLayout>
+
+</ScrollView>

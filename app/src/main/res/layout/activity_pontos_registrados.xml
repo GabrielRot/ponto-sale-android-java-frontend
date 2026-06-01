@@ -7,74 +7,113 @@
     android:layout_height="match_parent"
     tools:context=".ui.PontosRegistrados"
     android:clipToPadding="false">
-    
+
     <LinearLayout
-        android:id="@+id/apontamentosContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp"
-        android:paddingTop="22dp">
-
-        <com.google.android.material.card.MaterialCardView
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/topBar"
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            app:strokeColor="#CECECE"
-            app:strokeWidth="1dp"
-            app:cardCornerRadius="8dp"
-            android:clickable="true"
-            android:focusable="true">
-            <LinearLayout
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="end|center_vertical"
+            android:padding="8dp"
+            >
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnGerarRelatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="48dp"
+
+                android:text="Exportar PDF"
+                android:textAllCaps="false"
+                android:textStyle="bold"
+                android:textSize="14sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+
+                android:layout_margin="8dp"
+
+                android:backgroundTint="#D32F2F"
+                app:cornerRadius="12dp"
+
+                app:icon="@drawable/baseline_picture_as_pdf_24"
+                app:iconGravity="textStart"
+                app:iconPadding="8dp"
+                app:iconTint="@android:color/white"
+
+                android:textColor="@android:color/white"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/apontamentosContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp"
+            android:paddingTop="22dp">
+
+            <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:padding="8dp">
-
-                <LinearLayout
-                    android:layout_width="30dp"
-                    android:layout_height="match_parent"
-                    android:gravity="center|center_horizontal"
-                    android:layout_marginRight="6dp"
-                    >
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/ic_baseline_access_time_24"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sexta-Feira 10/04/2026 13:30"
-                        android:textColor="#646464"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sexta-Feira 10/04/2026 17:30"
-                        android:textColor="#646464"/>
-                </LinearLayout>
-
+                android:layout_height="60dp"
+                app:strokeColor="#CECECE"
+                app:strokeWidth="1dp"
+                app:cardCornerRadius="8dp"
+                android:clickable="true"
+                android:focusable="true">
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    >
-                    <TextView
+                    android:orientation="horizontal"
+                    android:padding="8dp">
+
+                    <LinearLayout
+                        android:layout_width="30dp"
+                        android:layout_height="match_parent"
+                        android:gravity="center|center_horizontal"
+                        android:layout_marginRight="6dp"
+                        >
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_baseline_access_time_24"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sexta-Feira 10/04/2026 13:30"
+                            android:textColor="#646464"/>
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Sexta-Feira 10/04/2026 17:30"
+                            android:textColor="#646464"/>
+                    </LinearLayout>
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="8h"
-                        android:textSize="16sp"
-                        android:textStyle="bold"
-                        android:textColor="#646464"
-                        android:gravity="center"
-                        android:textAlignment="textEnd"/>
+                        >
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:text="8h"
+                            android:textSize="16sp"
+                            android:textStyle="bold"
+                            android:textColor="#646464"
+                            android:gravity="center"
+                            android:textAlignment="textEnd"/>
+                    </LinearLayout>
                 </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            </com.google.android.material.card.MaterialCardView>
 
+        </LinearLayout>
     </LinearLayout>
 
 </ScrollView>

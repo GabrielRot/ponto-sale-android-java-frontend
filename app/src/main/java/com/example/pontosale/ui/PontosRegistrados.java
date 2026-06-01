@@ -2,7 +2,9 @@ package com.example.pontosale.ui;
 
 import android.content.Intent;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import android.widget.Toast;
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.FileProvider;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -23,16 +26,21 @@ import com.example.pontosale.R;
 import com.example.pontosale.session.SessionManager;
 import com.example.pontosale.utils.Constants;
 import com.example.pontosale.utils.Text;
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.card.MaterialCardView;
 import com.jakewharton.threetenabp.AndroidThreeTen;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import org.threeten.bp.Duration;
 import org.threeten.bp.LocalDateTime;
 import org.threeten.bp.format.DateTimeFormatter;
+
+import java.io.InputStream;
 import java.util.Locale;
 
 import okhttp3.Call;
@@ -50,6 +58,8 @@ public class PontosRegistrados extends AppCompatActivity {
     private SessionManager sessionManager;
 
     OkHttpClient client = new OkHttpClient();
+
+    private MaterialButton btnGerarRelatorio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +80,93 @@ public class PontosRegistrados extends AppCompatActivity {
 
         sessionManager = new SessionManager(this);
 
+        btnGerarRelatorio = findViewById(R.id.btnGerarRelatorio);
+
+        btnGerarRelatorio.setOnClickListener(v -> {
+            Request request = new Request.Builder()
+                    .url(Constants.BASE_URL + "ponto/relatorio-pdf")
+                    .addHeader("Authorization", "Bearer " + sessionManager.getToken())
+                    .build();
+
+            client.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                    Log.e("pontoUser", e.getMessage());
+                }
+
+                @Override
+                public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                    Log.d("PDF", "Content-Type: " + response.header("Content-Type"));
+                    Log.d("PDF", "Code: " + response.code());
+
+                    if (response.isSuccessful()) {
+                        File pdfFile = new File(
+                                getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS),
+                                "relatorio-ponto.pdf"
+                        );
+
+                        InputStream inputStream = response.body().byteStream();
+
+                        FileOutputStream outputStream = new FileOutputStream(pdfFile);
+
+                        byte[] buffer = new byte[4096];
+
+                        int bytesRead;
+
+                        while ((bytesRead = inputStream.read(buffer)) != -1) {
+                            outputStream.write(buffer, 0, bytesRead);
+                        }
+
+                        outputStream.flush();
+
+                        outputStream.close();
+
+                        inputStream.close();
+
+                        Log.d("PDF", "Arquivo salvo: " + pdfFile.exists());
+                        Log.d("PDF", "Tamanho: " + pdfFile.length());
+
+                        runOnUiThread(() -> abrirPdf(pdfFile));
+                    }
+                }
+            });
+        });
+
         fetchData();
+    }
+
+    private void abrirPdf(File pdfFile) {
+
+        Uri uri = FileProvider.getUriForFile(
+                this,
+                getPackageName() + ".provider",
+                pdfFile
+        );
+
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+
+        intent.setDataAndType(uri, "application/pdf");
+
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
+
+        Intent chooser = Intent.createChooser(
+                intent,
+                "Abrir PDF com"
+        );
+
+        try {
+            startActivity(chooser);
+        } catch (Exception e) {
+            Log.e("pontoUser", e.getMessage());
+
+            Toast.makeText(
+                    this,
+                    "Nenhum leitor PDF encontrado",
+                    Toast.LENGTH_LONG
+            ).show();
+        }
+
     }
 
     private void fetchData() {
@@ -132,6 +228,8 @@ public class PontosRegistrados extends AppCompatActivity {
 
                 // Cálculo da duração
                 Duration duration = Duration.between(entrada, saida);
+
+                Log.d("duration", String.valueOf(duration.toMinutes()));
 
                 long horas = duration.toHours();
                 long minutos = duration.toMinutes() % 60;

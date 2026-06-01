@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,49 +8,106 @@
     android:layout_height="match_parent"
     tools:context=".ui.Roles"
     android:clipToPadding="false">
+    
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/btnCadastrar"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <com.google.android.material.card.MaterialCardView
+        <LinearLayout
+            android:id="@+id/rolesContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_baseline_lock_person_24"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Admin"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="Administrador do sistema com direito a tudo"/>
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ic_outline_edit_square_24"/>
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
-    </LinearLayout>
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="22dp"
+            android:paddingLeft="8dp"
+            android:paddingBottom="22dp"
+            android:paddingRight="8dp">
 
+<!--                    <com.google.android.material.card.MaterialCardView-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:cardCornerRadius="8dp"-->
+<!--                        app:strokeWidth="2dp"-->
+<!--                        app:strokeColor="@color/gray"-->
+<!--                        android:clickable="true"-->
+<!--                        android:focusable="true">-->
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:padding="8dp">-->
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="wrap_content"-->
+<!--                                android:layout_height="wrap_content">-->
+<!--                                <ImageView-->
+<!--                                    android:layout_width="wrap_content"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:src="@drawable/ic_baseline_lock_person_24"/>-->
+<!--                            </LinearLayout>-->
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="280dp"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:orientation="vertical"-->
+<!--                                android:layout_marginLeft="4dp">-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Admin"-->
+<!--                                    android:textStyle="bold"-->
+<!--                                    android:textSize="16dp"/>-->
+<!--                                <TextView-->
+<!--                                    android:layout_width="match_parent"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:text="Administrador do sistema com direito a tudo"-->
+<!--                                    android:textSize="12dp"/>-->
+<!--                            </LinearLayout>-->
+<!--                            <LinearLayout-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="match_parent"-->
+<!--                                android:gravity="center">-->
+<!--                                <com.google.android.material.card.MaterialCardView-->
+<!--                                    android:layout_width="30dp"-->
+<!--                                    android:layout_height="30dp"-->
+<!--                                    android:layout_marginEnd="6dp"-->
+<!--                                    app:strokeWidth="0dp"-->
+<!--                                    android:focusable="true"-->
+<!--                                    android:clickable="true"-->
+<!--                                    android:layout_gravity="center">-->
+<!--                                    <ImageView-->
+<!--                                        android:clickable="true"-->
+<!--                                        android:focusable="true"-->
+<!--                                        android:layout_width="match_parent"-->
+<!--                                        android:layout_height="match_parent"-->
+<!--                                        android:src="@drawable/ic_outline_edit_square_24"/>-->
+<!--                                </com.google.android.material.card.MaterialCardView>-->
+<!--                                <ImageView-->
+<!--                                    android:clickable="true"-->
+<!--                                    android:focusable="true"-->
+<!--                                    android:layout_width="30dp"-->
+<!--                                    android:layout_height="wrap_content"-->
+<!--                                    android:src="@drawable/ic_baseline_delete_outline_24"-->
+<!--                                    app:tint="#E95B54" />-->
+<!--                            </LinearLayout>-->
+<!--                        </LinearLayout>-->
+<!--                    </com.google.android.material.card.MaterialCardView>-->
 
+        </LinearLayout>
 
-</ScrollView>
+    </ScrollView>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCadastrar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Cadastrar"
+        android:layout_margin="16dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
